@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="Images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="Images/favicon.png">
+<link rel="apple-touch-icon" href="Images/favicon.png">
+<meta name="theme-color" content="#0b2f8f">
+<title>Contact Us — A&B Tours and Travels, Dindigul</title>
+<meta name="description" content="Contact A&B Tours and Travels, Dindigul. Call 99529 53045 or message on WhatsApp for Kodaikanal tour package bookings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="hdr"></header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">Home</a><span>›</span>Contact</div>
+    <h1>Contact Us</h1>
+    <p>Call, WhatsApp or visit our office in Dindigul. We reply to every enquiry.</p>
+  </div>
+</section>
+
+<!-- ================= QUICK CONTACT ================= -->
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="hl">
+      <a class="hl-item reveal" id="qCall">
+        <div class="hl-ico"><i class="fa-solid fa-phone"></i></div>
+        <h3>Call Us</h3>
+        <p id="qCallTxt"></p>
+      </a>
+      <a class="hl-item reveal" id="qWa" target="_blank" rel="noopener">
+        <div class="hl-ico" style="background:linear-gradient(135deg,#1aa84e,#25d366)">
+          <i class="fa-brands fa-whatsapp"></i></div>
+        <h3>WhatsApp</h3>
+        <p>Fastest way to reach us. Send your dates and group size for an instant quote.</p>
+      </a>
+      <a class="hl-item reveal" id="qMap" target="_blank" rel="noopener">
+        <div class="hl-ico"><i class="fa-solid fa-location-dot"></i></div>
+        <h3>Visit Office</h3>
+        <p id="qAddr"></p>
+      </a>
+      <a class="hl-item reveal" id="qIg" target="_blank" rel="noopener">
+        <div class="hl-ico" style="background:linear-gradient(135deg,#8134af,#dd2a7b,#f58529)">
+          <i class="fa-brands fa-instagram"></i></div>
+        <h3>Instagram</h3>
+        <p>See photos and videos from our recent Kodaikanal trips.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORM + DETAILS ================= -->
+<section class="section">
+  <div class="wrap contact-grid">
+
+    <!-- enquiry form -->
+    <div class="cform reveal">
+      <h3>Send an Enquiry</h3>
+      <p class="sub">Fill this in and it opens WhatsApp with your details ready to send.</p>
+      <div class="f-grid">
+        <div class="field" style="grid-column:1/-1"><label>Destination</label>
+          <select id="dest"></select></div>
+        <div class="field"><label>Your Name</label>
+          <input type="text" id="cName" placeholder="e.g. Ramesh"></div>
+        <div class="field"><label>Phone Number</label>
+          <input type="tel" id="cPhone" placeholder="10 digit mobile"></div>
+        <div class="field"><label>Adults</label>
+          <input type="number" id="adults" value="2" min="1" max="60"></div>
+        <div class="field"><label>Kids</label>
+          <input type="number" id="kids" value="0" min="0" max="30"></div>
+        <div class="field"><label>Days</label>
+          <input type="number" id="days" value="2" min="1" max="10"></div>
+        <div class="field"><label>Nights</label>
+          <input type="number" id="nights" value="1" min="0" max="9"></div>
+        <div class="field"><label>Pickup Point</label>
+          <select id="pickup"></select></div>
+        <div class="field"><label>Travel Date</label>
+          <input type="date" id="tdate"></div>
+      </div>
+      <div class="field" style="margin-top:14px">
+        <label>Message (optional)</label>
+        <textarea id="cMsg" placeholder="Anything else we should know — campfire, extra room, special food?"></textarea>
+      </div>
+      <button class="btn-primary" id="sendBtn">
+        <i class="fa-brands fa-whatsapp"></i>&nbsp; Send on WhatsApp</button>
+      <p class="f-note">Your message opens in WhatsApp so you can check it before sending.</p>
+    </div>
+
+    <!-- details + map -->
+    <div>
+      <div class="cbox reveal" style="margin-bottom:24px">
+        <div class="cline">
+          <i class="fa-solid fa-location-dot"></i>
+          <div><b>OFFICE ADDRESS</b><span id="cAddr"></span></div>
+        </div>
+        <div class="cline">
+          <i class="fa-solid fa-phone"></i>
+          <div><b>PHONE</b><span id="cPhones"></span></div>
+        </div>
+        <div class="cline">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div><b>WHATSAPP</b><a id="cWa" href="#" target="_blank" rel="noopener"></a></div>
+        </div>
+        <div class="cline">
+          <i class="fa-solid fa-clock"></i>
+          <div><b>OPEN</b><span>Every day · 6:00 AM – 10:00 PM</span></div>
+        </div>
+        <div class="cline">
+          <i class="fa-solid fa-van-shuttle"></i>
+          <div><b>PICKUP POINTS</b><span id="cPickup"></span></div>
+        </div>
+      </div>
+      <div class="map-box reveal">
+        <iframe id="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Office location"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" style="background:#fff;padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Common Questions</span>
+      <h2>Frequently <span class="gold">Asked</span></h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Let's Plan Your Trip</h2>
+      <p>One message is all it takes. We'll confirm availability and send your final quote.</p>
+      <div class="cta-btns">
+        <a class="cta-wa" id="ctaWa" href="#" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+        <a class="cta-ph" id="ctaPh" href="#"><i class="fa-solid fa-phone"></i> Call Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="ftr"></footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  abInit("contact.html");
+
+  const ph1 = (SET.phones && SET.phones[0]) || "99529 53045";
+  const mapUrl = "https://www.google.com/maps/search/?api=1&query=" +
+                 encodeURIComponent(SET.mapQuery || SET.address);
+
+  /* quick contact tiles */
+  document.getElementById("qCall").href = telHref(ph1);
+  document.getElementById("qCallTxt").textContent = (SET.phones||[]).join(" · ");
+  document.getElementById("qWa").href = waHello();
+  document.getElementById("qMap").href = mapUrl;
+  document.getElementById("qAddr").textContent = SET.address;
+  document.getElementById("qIg").href = SET.instagram;
+
+  /* details box */
+  document.getElementById("cAddr").textContent = SET.address;
+  document.getElementById("cPhones").innerHTML =
+    (SET.phones||[]).map(p => `<a href="${telHref(p)}">${esc(p)}</a>`).join(" · ");
+  document.getElementById("cWa").href = waHello();
+  document.getElementById("cWa").textContent = "+91 " + ph1;
+  document.getElementById("cPickup").textContent = (SET.pickupPoints||[]).join(" · ");
+  document.getElementById("map").src =
+    "https://www.google.com/maps?q=" + encodeURIComponent(SET.mapQuery || SET.address) + "&output=embed";
+
+  document.getElementById("ctaWa").href = waHello();
+  document.getElementById("ctaPh").href = telHref(ph1);
+
+  /* pickup + destination dropdowns */
+  document.getElementById("pickup").innerHTML =
+    (SET.pickupPoints||["Dindigul"]).map(p => `<option>${esc(p)}</option>`).join("");
+  document.getElementById("dest").innerHTML =
+    `<option value="all">Not decided yet / Any destination</option>` +
+    liveDests().map(d => `<option value="${esc(d.id)}">${esc(d.name)}, ${esc(d.state)}</option>`).join("");
+
+  /* keep nights sensible */
+  const dEl = document.getElementById("days"), nEl = document.getElementById("nights");
+  dEl.addEventListener("change", () => nEl.value = Math.max(0, Number(dEl.value) - 1));
+
+  /* enquiry form → WhatsApp */
+  document.getElementById("sendBtn").addEventListener("click", () => {
+    const q = readFinder();
+    const name = document.getElementById("cName").value.trim();
+    const phone = document.getElementById("cPhone").value.trim();
+    const msg = document.getElementById("cMsg").value.trim();
+
+    if(!name){ alert("Please enter your name."); document.getElementById("cName").focus(); return; }
+
+    /* suggest the best-fitting package so the office gets a head start */
+    const res = matchPackages(q);
+    const top = res.list[0];
+
+    const L = ["*Enquiry — " + SET.company + "*", ""];
+    L.push("🙍 *Name:* " + name);
+    if(phone) L.push("📞 *Phone:* " + phone);
+    L.push("🗺 *Destination:* " + (q.dest === "all" ? "Not decided yet" : destName(q.dest)));
+    L.push("👥 *Adults:* " + q.adults);
+    L.push("🧒 *Kids:* " + q.kids);
+    L.push("📅 *Days / Nights:* " + q.days + " / " + q.nights);
+    L.push("📍 *Pickup:* " + q.pickup);
+    if(q.date) L.push("🗓 *Travel Date:* " + q.date);
+    if(top){
+      L.push("");
+      L.push("📦 *Interested in:* " + top.p.name +
+             (top.p.draft ? " (price on request)" : " (" + money(top.total) + ")"));
+    }
+    if(msg){ L.push(""); L.push("💬 *Message:* " + msg); }
+    L.push("");
+    L.push("Please send me the final quote. Thank you!");
+
+    window.open(waBase() + "?text=" + encodeURIComponent(L.join("\n")), "_blank");
+  });
+
+  /* FAQ */
+  const FAQ = [
+    ["Which destinations do you cover?",
+     "Kodaikanal in Tamil Nadu, and Munnar, Thekkady and Vagamon in Kerala. All trips start from our Dindigul office, and we can combine two destinations into one trip on request."],
+    ["What is included in the package price?",
+     "Private cab for the whole trip, accommodation, breakfast and dinner as listed, plus toll, parking and driver charges. Lunch, campfire and personal expenses are not included, and the driver food allowance is ₹300 per day. For Kerala trips, park entry tickets, boating charges and interstate permits are extra."],
+    ["Where do you pick up from?",
+     "Dindigul, Kodai Road, Palani, Madurai and Theni. Kodaikanal pickup is at 5:00 AM; Kerala trips start earlier, around 4:00 to 4:30 AM, and drop is between 9:00 PM and 10:00 PM on the last day."],
+    ["Do you charge extra for children?",
+     "Children below 7 years travel without a food charge. Above 7 years, food charges are extra. Tell us the ages when you enquire and we'll confirm the exact price."],
+    ["How do I confirm a booking?",
+     "Message us on WhatsApp with your dates and group size. Once we confirm availability, the booking is held with an advance payment."],
+    ["Can you customise the itinerary?",
+     "Yes. Extra days, additional rooms, a bigger vehicle, campfire or specific sightseeing spots can all be arranged — just mention it in your message."],
+    ["What is the group offer package?",
+     "For groups of 7 members and above we offer per-person pricing. Kodaikanal is ₹2,500 per person for 2 days / 1 night and ₹3,700 per person for 3 days / 2 nights, including cab, room and food. Munnar, Thekkady and Vagamon group rates are shared on request."],
+    ["Why do some packages show \"On Request\"?",
+     "Our Kerala packages — Munnar, Thekkady and Vagamon — are priced per trip depending on the season, the hotel and your group size. Message us with your dates and we'll send a firm quote the same day."]
+  ];
+  document.getElementById("faq").innerHTML = FAQ.map(([q,a]) => `
+    <div class="faq-item reveal">
+      <button class="faq-q">${q}<i class="fa-solid fa-chevron-down"></i></button>
+      <div class="faq-a"><p>${a}</p></div>
+    </div>`).join("");
+  document.querySelectorAll(".faq-q").forEach(b =>
+    b.addEventListener("click", () => b.parentElement.classList.toggle("open")));
+});
+</script>
+</body>
+</html>

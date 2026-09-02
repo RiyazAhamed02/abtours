@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="v-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#09283a"/>
+      <stop offset="38%" stop-color="#1c5c80"/>
+      <stop offset="70%" stop-color="#8fb5c9"/>
+      <stop offset="100%" stop-color="#e8e0b4"/>
+    </linearGradient>
+    <radialGradient id="v-sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffbe4" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#ffe1a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="v-mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#fff" stop-opacity=".65"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#v-sky)"/>
+  <circle cx="640" cy="250" r="160" fill="url(#v-sun)"/>
+  <circle cx="640" cy="250" r="30" fill="#fffae2" opacity=".85"/>
+
+  <!-- clouds -->
+  <g fill="#ffffff" opacity=".22">
+    <ellipse cx="180" cy="150" rx="86" ry="16"/>
+    <ellipse cx="238" cy="142" rx="56" ry="12"/>
+    <ellipse cx="520" cy="112" rx="70" ry="13"/>
+  </g>
+
+  <!-- distant blue ridges -->
+  <path fill="#2c5a74" opacity=".55"
+    d="M0 316 L100 274 L200 310 L310 264 L420 306 L540 268 L660 308 L780 272 L800 288 L800 600 L0 600 Z"/>
+  <rect x="-40" y="300" width="900" height="32" fill="url(#v-mist)" opacity=".5"/>
+  <path fill="#274258" opacity=".85"
+    d="M0 362 L120 318 L240 356 L360 310 L480 352 L610 314 L730 354 L800 330 L800 600 L0 600 Z"/>
+
+  <!-- rolling green meadows -->
+  <path fill="#40677b" d="M0 412 q190 -66 390 -8 q200 58 410 -22 L800 600 L0 600 Z"/>
+  <path fill="#507a8f" d="M0 468 q200 -58 400 2 q200 58 400 -20 L800 600 L0 600 Z"/>
+  <path fill="#608ea3" d="M0 528 q210 -50 420 6 q190 48 380 -14 L800 600 L0 600 Z"/>
+
+  <!-- meadow contour shading -->
+  <g stroke="#305162" stroke-opacity=".3" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M0 432 q190 -62 390 -6 q200 56 410 -20"/>
+    <path d="M0 490 q200 -54 400 4 q200 54 400 -18"/>
+    <path d="M0 552 q210 -46 420 8 q190 44 380 -12"/>
+    <path d="M0 578 q210 -44 420 10 q190 42 380 -10"/>
+  </g>
+
+  <!-- pine forest cluster -->
+  <g fill="#172c39">
+    <path d="M64 392 l15 -58 l15 58 z M58 412 l21 -52 l21 52 z"/>
+    <path d="M112 400 l13 -50 l13 50 z M107 418 l18 -46 l18 46 z"/>
+    <path d="M158 388 l16 -60 l16 60 z M152 410 l22 -54 l22 54 z"/>
+    <path d="M208 402 l13 -48 l13 48 z M203 418 l18 -44 l18 44 z"/>
+    <path d="M252 394 l15 -56 l15 56 z M246 412 l21 -50 l21 50 z"/>
+    <rect x="52" y="406" width="230" height="24"/>
+  </g>
+
+  <!-- lone tree right -->
+  <g>
+    <rect x="686" y="398" width="8" height="46" fill="#3a2a16"/>
+    <ellipse cx="690" cy="386" rx="36" ry="27" fill="#1f3d4e"/>
+    <ellipse cx="668" cy="396" rx="22" ry="17" fill="#284a5e"/>
+  </g>
+
+  <!-- paraglider -->
+  <g>
+    <path d="M368 172 q76 -46 152 0 q-40 -14 -76 -12 q-36 -2 -76 12 Z" fill="#e8543f"/>
+    <path d="M368 172 q76 -46 152 0" fill="none" stroke="#a8341f" stroke-width="3"/>
+    <path d="M420 168 l24 -8 M468 168 l-24 -8" fill="none" stroke="#a8341f" stroke-width="2.5" opacity=".7"/>
+    <g stroke="#2b2b2b" stroke-width="1.6" fill="none">
+      <path d="M384 176 L442 216"/><path d="M418 168 L442 216"/>
+      <path d="M470 168 L446 216"/><path d="M504 176 L446 216"/>
+    </g>
+    <ellipse cx="444" cy="224" rx="9" ry="13" fill="#1c435c"/>
+    <circle cx="444" cy="208" r="7" fill="#f0c9a0"/>
+    <circle cx="444" cy="206" r="7.5" fill="none" stroke="#243f52" stroke-width="3"/>
+  </g>
+
+  <!-- second, smaller paraglider -->
+  <g opacity=".7">
+    <path d="M186 250 q46 -28 92 0 q-24 -9 -46 -7 q-22 -2 -46 7 Z" fill="#f0b23c"/>
+    <g stroke="#2b2b2b" stroke-width="1.2" fill="none">
+      <path d="M196 253 L232 278"/><path d="M268 253 L232 278"/>
+    </g>
+    <ellipse cx="232" cy="284" rx="6" ry="9" fill="#2c4049"/>
+  </g>
+
+  <!-- wildflowers in the near meadow -->
+  <g opacity=".8">
+    <circle cx="90" cy="548" r="4" fill="#f2e06a"/><circle cx="140" cy="566" r="3.5" fill="#fff"/>
+    <circle cx="212" cy="556" r="4" fill="#f2e06a"/><circle cx="286" cy="574" r="3.5" fill="#f0a0c0"/>
+    <circle cx="356" cy="562" r="4" fill="#fff"/><circle cx="440" cy="578" r="3.5" fill="#f2e06a"/>
+    <circle cx="530" cy="566" r="4" fill="#f0a0c0"/><circle cx="612" cy="580" r="3.5" fill="#fff"/>
+    <circle cx="700" cy="562" r="4" fill="#f2e06a"/><circle cx="762" cy="578" r="3.5" fill="#fff"/>
+  </g>
+</svg>

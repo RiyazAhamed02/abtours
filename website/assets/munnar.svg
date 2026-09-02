@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="m-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#132c3d"/>
+      <stop offset="42%" stop-color="#2d5b78"/>
+      <stop offset="75%" stop-color="#7bafbe"/>
+      <stop offset="100%" stop-color="#f0d79a"/>
+    </linearGradient>
+    <radialGradient id="m-sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffae0" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="m-mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#fff" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#m-sky)"/>
+  <circle cx="230" cy="270" r="170" fill="url(#m-sun)"/>
+  <circle cx="230" cy="270" r="34" fill="#fff6d8" opacity=".9"/>
+
+  <!-- distant hills -->
+  <path fill="#305369" opacity=".55"
+    d="M0 322 L110 280 L215 316 L330 268 L450 310 L570 272 L690 312 L800 282 L800 600 L0 600 Z"/>
+  <rect x="-40" y="308" width="900" height="30" fill="url(#m-mist)" opacity=".45"/>
+  <path fill="#254154" opacity=".85"
+    d="M0 368 L120 322 L240 360 L370 312 L500 356 L630 316 L760 358 L800 340 L800 600 L0 600 Z"/>
+
+  <!-- rolling tea hills -->
+  <path fill="#2f5469" d="M0 420 q200 -62 400 -6 q200 56 400 -18 L800 600 L0 600 Z"/>
+  <path fill="#3b657b" d="M0 470 q210 -54 420 4 q190 52 380 -14 L800 600 L0 600 Z"/>
+  <path fill="#487389" d="M0 524 q220 -46 430 8 q180 44 370 -10 L800 600 L0 600 Z"/>
+
+  <!-- tea terrace contour lines -->
+  <g stroke="#1f3a49" stroke-opacity=".38" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M0 436 q200 -58 400 -4 q200 54 400 -16"/>
+    <path d="M0 452 q200 -56 400 -2 q200 52 400 -14"/>
+    <path d="M0 486 q210 -50 420 6 q190 48 380 -12"/>
+    <path d="M0 504 q210 -48 420 8 q190 46 380 -10"/>
+    <path d="M0 540 q220 -42 430 10 q180 40 370 -8"/>
+    <path d="M0 560 q220 -40 430 12 q180 38 370 -6"/>
+    <path d="M0 580 q220 -38 430 14 q180 36 370 -4"/>
+  </g>
+
+  <!-- tea bushes texture -->
+  <g fill="#203d4d" opacity=".3">
+    <circle cx="90" cy="464" r="9"/><circle cx="180" cy="452" r="8"/><circle cx="272" cy="446" r="9"/>
+    <circle cx="368" cy="448" r="8"/><circle cx="462" cy="458" r="9"/><circle cx="556" cy="464" r="8"/>
+    <circle cx="650" cy="452" r="9"/><circle cx="740" cy="438" r="8"/>
+    <circle cx="140" cy="516" r="10"/><circle cx="250" cy="508" r="9"/><circle cx="360" cy="506" r="10"/>
+    <circle cx="470" cy="512" r="9"/><circle cx="580" cy="518" r="10"/><circle cx="690" cy="506" r="9"/>
+  </g>
+
+  <!-- lone tree on the ridge -->
+  <g>
+    <rect x="596" y="392" width="7" height="42" fill="#3a2a16"/>
+    <ellipse cx="600" cy="382" rx="34" ry="26" fill="#1d3949"/>
+    <ellipse cx="580" cy="392" rx="22" ry="17" fill="#244558"/>
+    <ellipse cx="620" cy="391" rx="20" ry="15" fill="#244558"/>
+  </g>
+
+  <!-- tea pickers -->
+  <g fill="#1a252a" opacity=".8">
+    <ellipse cx="300" cy="498" rx="7" ry="11"/><circle cx="300" cy="482" r="5.5" fill="#c9563f"/>
+    <ellipse cx="336" cy="506" rx="7" ry="11"/><circle cx="336" cy="490" r="5.5" fill="#d98b3a"/>
+  </g>
+
+  <!-- birds -->
+  <g stroke="#12232f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55">
+    <path d="M470 190 q13 -11 26 0 q13 -11 26 0"/>
+    <path d="M540 224 q10 -9 20 0 q10 -9 20 0"/>
+  </g>
+</svg>

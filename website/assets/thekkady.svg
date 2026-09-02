@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="t-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1c06"/>
+      <stop offset="34%" stop-color="#6b4a12"/>
+      <stop offset="66%" stop-color="#c78e2e"/>
+      <stop offset="100%" stop-color="#f5d78d"/>
+    </linearGradient>
+    <radialGradient id="t-sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff3cd" stop-opacity=".95"/>
+      <stop offset="100%" stop-color="#ffb648" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="t-lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9a7c3e"/>
+      <stop offset="45%" stop-color="#3c545b"/>
+      <stop offset="100%" stop-color="#1f2b2f"/>
+    </linearGradient>
+    <linearGradient id="t-mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#t-sky)"/>
+  <circle cx="400" cy="330" r="190" fill="url(#t-sun)"/>
+  <circle cx="400" cy="336" r="44" fill="#ffeeb8" opacity=".95"/>
+
+  <!-- forested ridges -->
+  <path fill="#2c4249" opacity=".6"
+    d="M0 340 L90 302 L180 334 L280 292 L390 330 L500 296 L610 334 L710 300 L800 330 L800 600 L0 600 Z"/>
+  <rect x="-40" y="326" width="900" height="30" fill="url(#t-mist)" opacity=".38"/>
+  <path fill="#203339" opacity=".9"
+    d="M0 384 L110 344 L220 378 L330 336 L450 376 L570 340 L680 380 L790 344 L800 352 L800 600 L0 600 Z"/>
+
+  <!-- treeline silhouette -->
+  <g fill="#152226">
+    <ellipse cx="60" cy="378" rx="30" ry="22"/><ellipse cx="112" cy="386" rx="24" ry="18"/>
+    <ellipse cx="176" cy="376" rx="32" ry="24"/><ellipse cx="238" cy="388" rx="26" ry="19"/>
+    <ellipse cx="306" cy="378" rx="30" ry="22"/><ellipse cx="366" cy="390" rx="24" ry="17"/>
+    <ellipse cx="470" cy="382" rx="30" ry="22"/><ellipse cx="528" cy="390" rx="24" ry="18"/>
+    <ellipse cx="596" cy="378" rx="32" ry="23"/><ellipse cx="660" cy="390" rx="26" ry="19"/>
+    <ellipse cx="726" cy="378" rx="30" ry="22"/><ellipse cx="782" cy="388" rx="26" ry="19"/>
+    <rect x="0" y="386" width="800" height="34"/>
+  </g>
+
+  <!-- Periyar lake -->
+  <path fill="url(#t-lake)" d="M0 420 L800 420 L800 600 L0 600 Z"/>
+
+  <!-- dead tree stumps standing in the water (Periyar's signature) -->
+  <g stroke="#1a1a10" stroke-width="6" stroke-linecap="round" fill="none" opacity=".85">
+    <path d="M132 470 L132 424 M132 442 l-16 -14 M132 452 l17 -13"/>
+    <path d="M214 486 L214 434 M214 452 l-14 -13"/>
+    <path d="M626 476 L626 426 M626 444 l16 -14 M626 458 l-15 -12"/>
+    <path d="M700 492 L700 440 M700 458 l14 -12"/>
+  </g>
+
+  <!-- sun reflection -->
+  <g fill="#ffe3a0" opacity=".28">
+    <rect x="366" y="438" width="68" height="6" rx="3"/>
+    <rect x="374" y="462" width="52" height="5" rx="2.5"/>
+    <rect x="360" y="488" width="80" height="5" rx="2.5"/>
+    <rect x="376" y="516" width="48" height="4" rx="2"/>
+    <rect x="364" y="546" width="72" height="4" rx="2"/>
+  </g>
+
+  <!-- boat safari -->
+  <g opacity=".92">
+    <path d="M452 502 q54 30 116 0 q-58 14 -116 0 Z" fill="#5a3a1c"/>
+    <rect x="470" y="480" width="80" height="22" rx="4" fill="#7d5427"/>
+    <rect x="466" y="472" width="88" height="8" rx="4" fill="#e8dcc0"/>
+    <g fill="#2b2b1c"><circle cx="486" cy="490" r="4"/><circle cx="506" cy="490" r="4"/><circle cx="526" cy="490" r="4"/></g>
+  </g>
+
+  <!-- elephants at the water's edge -->
+  <g fill="#1c1c14" opacity=".9">
+    <ellipse cx="180" cy="548" rx="52" ry="32"/>
+    <ellipse cx="228" cy="536" rx="22" ry="20"/>
+    <path d="M246 542 q16 12 8 34 q-4 10 -12 4 q6 -18 -4 -32 Z"/>
+    <path d="M212 526 q-16 -12 -4 -24 q10 -8 18 4 Z"/>
+    <rect x="146" y="566" width="12" height="26" rx="5"/>
+    <rect x="176" y="570" width="12" height="24" rx="5"/>
+    <rect x="204" y="566" width="12" height="26" rx="5"/>
+    <ellipse cx="96" cy="568" rx="30" ry="19"/>
+    <ellipse cx="124" cy="562" rx="13" ry="12"/>
+    <path d="M134 566 q10 8 5 20 q-3 6 -8 2 q4 -11 -3 -19 Z"/>
+  </g>
+
+  <!-- birds -->
+  <g stroke="#2a1c06" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5">
+    <path d="M120 196 q13 -11 26 0 q13 -11 26 0"/>
+    <path d="M196 232 q10 -9 20 0 q10 -9 20 0"/>
+    <path d="M640 210 q11 -10 22 0 q11 -10 22 0"/>
+  </g>
+</svg>

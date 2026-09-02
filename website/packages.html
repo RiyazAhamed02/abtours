@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="Images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="Images/favicon.png">
+<link rel="apple-touch-icon" href="Images/favicon.png">
+<meta name="theme-color" content="#0b2f8f">
+<title>Our Packages — A&B Tours and Travels, Dindigul</title>
+<meta name="description" content="Kodaikanal couple, family and group tour packages from Dindigul. Cab, room and food included. Enter your group size for an instant price.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="hdr"></header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">Home</a><span>›</span>Our Packages</div>
+    <h1 id="phTitle">Our Tour Packages</h1>
+    <p id="phSub">Kodaikanal, Munnar, Thekkady and Vagamon. Cab, accommodation, breakfast and dinner included in every package.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:44px">
+  <div class="wrap">
+
+    <!-- ---------- FINDER ---------- -->
+    <div class="finder-panel reveal">
+      <h3><i class="fa-solid fa-sliders" style="color:var(--sun)"></i> Find Your Package</h3>
+      <p class="sub">Change any value and the matching packages update instantly.</p>
+      <div id="finderBox"></div>
+      <button class="btn-primary" id="findBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>&nbsp; Update My Results</button>
+    </div>
+
+    <!-- ---------- DESTINATION BAR ---------- -->
+    <div class="destbar" id="destbar"></div>
+
+    <!-- ---------- FILTERS ---------- -->
+    <div class="filters" id="filters">
+      <button class="filter on" data-f="match"><i class="fa-solid fa-wand-magic-sparkles"></i> Best For Me</button>
+      <button class="filter" data-f="all">All Packages</button>
+      <button class="filter" data-f="couple">💑 Couple</button>
+      <button class="filter" data-f="family">👨‍👩‍👧 Family</button>
+      <button class="filter" data-f="offer">🎉 Group Offers</button>
+      <button class="filter" data-f="group">🚐 Group</button>
+    </div>
+
+    <div id="banner"></div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<!-- ---------- COMPARISON TABLE ---------- -->
+<section class="section" style="background:#fff;padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">At a Glance</span>
+      <h2>Compare <span class="gold">All Packages</span></h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="cmp" style="width:100%;border-collapse:collapse;min-width:640px;
+        background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)"></table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- CTA ---------- -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Not Sure Which One Fits?</h2>
+      <p>Message us your group size and dates — we'll suggest the best option and build a custom plan if needed.</p>
+      <div class="cta-btns">
+        <a class="cta-wa" id="ctaWa" href="#" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp</a>
+        <a class="cta-ph" id="ctaPh" href="#"><i class="fa-solid fa-phone"></i> Call Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="ftr"></footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  abInit("packages.html");
+
+  const url = finderFromURL();
+  let mode = url.type && url.type !== "all" ? url.type : "match";
+  let dest = url.dest || "all";
+
+  const ph1 = (SET.phones && SET.phones[0]) || "99529 53045";
+  document.getElementById("ctaPh").href = telHref(ph1);
+  document.getElementById("ctaWa").href = waHello("I need help choosing the right tour package.");
+
+  /* prefill the finder from the URL (sent over from the home page) */
+  document.getElementById("finderBox").innerHTML = finderHTML(url);
+  wireFinder(() => { dest = readFinder().dest; syncDestBar(); render(); });
+
+  /* ---------- destination buttons ---------- */
+  const dl = liveDests();
+  document.getElementById("destbar").innerHTML =
+    `<button class="dbtn" data-d="all"><i class="fa-solid fa-earth-asia"></i> All Destinations</button>` +
+    dl.map(d => {
+      const n = PKGS.filter(p => p.active !== false && p.dest === d.id).length;
+      return `<button class="dbtn" data-d="${esc(d.id)}">
+        <i class="fa-solid ${esc(d.icon)}"></i> ${esc(d.name)} <small>(${n})</small></button>`;
+    }).join("");
+
+  function syncDestBar(){
+    document.querySelectorAll(".dbtn").forEach(b => b.classList.toggle("on", b.dataset.d === dest));
+    const sel = document.getElementById("dest");
+    if(sel && sel.value !== dest) sel.value = dest;
+    const d = dest === "all" ? null : destOf(dest);
+
+    /* page banner picks up the destination photo */
+    const head = document.querySelector(".pagehead");
+    if(head){
+      head.style.backgroundImage = d ? destArt(d.id) : "";
+      head.style.backgroundPosition = d ? destFocus(d.id) : "";
+      head.classList.toggle("art", !!d);
+    }
+
+    document.getElementById("phTitle").textContent = d ? "Our " + d.name + " Packages" : "Our Tour Packages";
+    document.getElementById("phSub").textContent = d
+      ? d.blurb + " Cab, accommodation and food included."
+      : "Kodaikanal, Munnar, Thekkady and Vagamon. Cab, accommodation, breakfast and dinner included in every package.";
+  }
+  document.querySelectorAll(".dbtn").forEach(b => b.addEventListener("click", () => {
+    dest = b.dataset.d; syncDestBar(); render();
+  }));
+  syncDestBar();
+
+  /* filter buttons */
+  document.querySelectorAll(".filter").forEach(b => {
+    b.classList.toggle("on", b.dataset.f === mode);
+    b.addEventListener("click", () => {
+      mode = b.dataset.f;
+      document.querySelectorAll(".filter").forEach(x => x.classList.toggle("on", x === b));
+      render();
+    });
+  });
+
+  document.getElementById("findBtn").addEventListener("click", () => {
+    mode = "match";
+    document.querySelectorAll(".filter").forEach(x => x.classList.toggle("on", x.dataset.f === "match"));
+    render();
+    document.getElementById("banner").scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+
+  /* ---------- render ---------- */
+  function render(){
+    const q = readFinder();
+    q.dest = dest;
+    const res = matchPackages(q);
+    const dLabel = dest === "all" ? "" : destOf(dest).name + " ";
+    const cards = document.getElementById("cards");
+    const banner = document.getElementById("banner");
+    let list, best = false, title, sub;
+
+    if(mode === "match"){
+      list = res.list; best = res.exact;
+      title = res.exact
+        ? res.list.length + " " + dLabel + "package" + (res.list.length>1?"s":"") + " matched your trip"
+        : "Closest " + dLabel + "options for your trip";
+      sub = res.exact
+        ? "Sorted by best fit for your group size and trip length."
+        : "No exact match — here are the nearest packages. Message us for a custom quote.";
+    } else {
+      const pool = mode === "all" ? res.all : res.all.filter(s => s.p.type === mode);
+      list = pool.sort((a,b) => a.p.days - b.p.days || a.total - b.total);
+      const label = { all:"All", couple:"Couple", family:"Family",
+                      offer:"Group offer", group:"Group" }[mode];
+      title = label + " " + dLabel + "packages (" + list.length + ")";
+      sub = "Prices below are calculated for " + q.adults + " adults" +
+            (q.kids ? " and " + q.kids + " kids" : "") + ".";
+    }
+
+    banner.innerHTML = `
+      <div class="result-banner reveal in">
+        <div><b>${title}</b><br><span>${sub}</span></div>
+        <div>
+          ${dest !== "all" ? `<span class="chip">🗺 ${esc(destOf(dest).name)}</span>` : ""}
+          <span class="chip">👥 ${q.adults} Adults</span>
+          <span class="chip">🧒 ${q.kids} Kids</span>
+          <span class="chip">🗓 ${q.days}D / ${q.nights}N</span>
+          <span class="chip">📍 ${esc(q.pickup)}</span>
+        </div>
+      </div>`;
+
+    if(!list.length){
+      cards.innerHTML = `<div class="empty" style="grid-column:1/-1">
+        <h3>Nothing here yet</h3>
+        <p>We don't have a package in this category right now — but we can build one for you.</p>
+        <a class="btn-wa" style="max-width:280px;margin:0 auto"
+           href="${waLink(null,q,0)}" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Get Custom Quote</a></div>`;
+      return;
+    }
+
+    cards.innerHTML = list.map((m,i) => cardHTML(m, q, best && i === 0)).join("") + `
+      <article class="card">
+        <div class="card-body center" style="justify-content:center">
+          <div style="font-size:2.4rem;color:var(--sun);margin-bottom:10px">
+            <i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h3 style="font-size:1.15rem;margin-bottom:8px">Need something different?</h3>
+          <p style="font-size:.88rem;color:var(--muted);margin-bottom:18px">
+            Custom days, extra rooms, campfire or a bigger vehicle — we'll arrange it.</p>
+          <a class="btn-wa" href="${waLink(null,q,0)}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Ask for Custom Quote</a>
+        </div>
+      </article>`;
+
+    cards.querySelectorAll("[data-view]").forEach(b =>
+      b.addEventListener("click", () => openModal(b.dataset.view, q)));
+  }
+
+  /* ---------- comparison table ---------- */
+  const live = PKGS.filter(p => p.active !== false)
+    .sort((a,b) => String(a.dest).localeCompare(String(b.dest)) || a.days - b.days || a.price - b.price);
+  document.getElementById("cmp").innerHTML = `
+    <thead><tr style="background:var(--deep);color:#fff;text-align:left">
+      <th style="padding:14px 16px;font-size:.85rem">Destination</th>
+      <th style="padding:14px 16px;font-size:.85rem">Package</th>
+      <th style="padding:14px 16px;font-size:.85rem">Duration</th>
+      <th style="padding:14px 16px;font-size:.85rem">Group Size</th>
+      <th style="padding:14px 16px;font-size:.85rem">Vehicle</th>
+      <th style="padding:14px 16px;font-size:.85rem">Price</th>
+    </tr></thead>
+    <tbody>${live.map((p,i) => `
+      <tr style="border-bottom:1px solid var(--line);background:${i%2?'#fbfdfc':'#fff'}">
+        <td style="padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--deep);white-space:nowrap">
+          ${esc(destOf(p.dest).name)}</td>
+        <td style="padding:13px 16px;font-size:.88rem;font-weight:600">${esc(p.name)}</td>
+        <td style="padding:13px 16px;font-size:.86rem;color:var(--muted);white-space:nowrap">${p.days}D / ${p.nights}N</td>
+        <td style="padding:13px 16px;font-size:.86rem;color:var(--muted);white-space:nowrap">${p.minPax}–${p.maxPax} pax</td>
+        <td style="padding:13px 16px;font-size:.86rem;color:var(--muted)">${esc(p.vehicle)}</td>
+        <td style="padding:13px 16px;font-size:.9rem;font-weight:700;color:var(--deep);white-space:nowrap">
+          ${p.draft ? `<span style="color:var(--muted);font-weight:600">On request</span>`
+            : money(p.price) + `<span style="font-weight:400;color:var(--muted);font-size:.78rem">
+              ${p.priceType === "person" ? " / person" : " total"}</span>`}</td>
+      </tr>`).join("")}</tbody>`;
+
+  render();
+});
+</script>
+</body>
+</html>

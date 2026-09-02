@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="Images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="Images/favicon.png">
+<link rel="apple-touch-icon" href="Images/favicon.png">
+<meta name="theme-color" content="#0b2f8f">
+<title>Admin Panel — A&B Tours and Travels</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--deep:#0b2f8f;--brand:#128a2a;--tint:#e6f5e9;--sun:#f6c400;--ink:#0f2233;
+--muted:#5d6c86;--line:#dde4ef;--bg:#f2f9f4;--red:#e01f16;--radius:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button{font-family:inherit;cursor:pointer;border:none}
+a{color:var(--brand)}
+
+/* ---------- Login ---------- */
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;
+  background:linear-gradient(135deg,#062a45,#0b2f8f 45%,#128a2a)}
+.login{background:#fff;border-radius:22px;padding:38px 34px;width:100%;max-width:400px;
+  box-shadow:0 24px 60px rgba(0,0,0,.28);text-align:center}
+.login .mark{width:96px;height:96px;margin:0 auto 14px;display:block;object-fit:contain;
+  filter:drop-shadow(0 4px 12px rgba(11,47,143,.22))}
+.login h1{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:4px}
+.login p{color:var(--muted);font-size:.88rem;margin-bottom:22px}
+.login input{width:100%;height:50px;border:1.5px solid var(--line);border-radius:12px;
+  padding:0 14px;font-size:1rem;outline:none;font-family:inherit;margin-bottom:14px}
+.login input:focus{border-color:var(--brand)}
+.login button{width:100%;height:50px;border-radius:12px;background:linear-gradient(135deg,var(--deep),var(--brand));
+  color:#fff;font-weight:600;font-size:1rem}
+.err{color:var(--red);font-size:.85rem;min-height:20px}
+
+/* ---------- Shell ---------- */
+.app{display:none}
+.topbar{background:var(--deep);color:#fff;padding:14px 22px;display:flex;justify-content:space-between;
+  align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:50}
+.topbar b{font-family:'Playfair Display',serif;font-size:1.15rem}
+.topbar .acts{display:flex;gap:10px;flex-wrap:wrap}
+.tb{background:rgba(255,255,255,.16);color:#fff;padding:9px 16px;border-radius:9px;font-size:.85rem;font-weight:500}
+.tb:hover{background:rgba(255,255,255,.28)}
+.tb.danger{background:rgba(255,120,100,.25)}
+.tabs{background:#fff;border-bottom:1px solid var(--line);display:flex;gap:4px;padding:0 22px;overflow-x:auto;
+  position:sticky;top:56px;z-index:40}
+.tab{padding:14px 18px;font-size:.92rem;font-weight:500;color:var(--muted);background:none;
+  border-bottom:3px solid transparent;white-space:nowrap}
+.tab.on{color:var(--deep);border-bottom-color:var(--sun);font-weight:600}
+.page{max-width:1200px;margin:0 auto;padding:26px 22px 70px}
+.panel{display:none}.panel.on{display:block}
+h2.sec{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:6px}
+p.sub{color:var(--muted);font-size:.9rem;margin-bottom:22px}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:26px}
+.stat{background:#fff;border-radius:var(--radius);padding:18px;border:1px solid var(--line)}
+.stat b{display:block;font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--deep)}
+.stat span{font-size:.82rem;color:var(--muted)}
+
+/* ---------- Package rows ---------- */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.btn{background:linear-gradient(135deg,var(--deep),var(--brand));color:#fff;padding:11px 20px;
+  border-radius:10px;font-weight:600;font-size:.9rem}
+.btn.ghost{background:#fff;color:var(--deep);border:1.5px solid var(--line)}
+.btn.warn{background:var(--red)}
+.btn.small{padding:8px 14px;font-size:.82rem}
+.plist{display:grid;gap:12px}
+.prow{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;
+  display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.prow.off{opacity:.55}
+.prow h3{font-size:1.02rem;font-family:'Poppins',sans-serif;font-weight:600;margin-bottom:5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:var(--tint);color:var(--deep);font-size:.74rem;padding:4px 10px;border-radius:7px;font-weight:500}
+.tag.price{background:#fff8e0;color:#8a5c00;font-weight:700}
+.tag.type{background:#e7f1ff;color:#0b2f8f}
+.tag.dest{background:var(--deep);color:#fff;font-weight:700}
+.tag.draft{background:#fde8e8;color:#a01a1a;font-weight:700}
+
+/* destination filter row */
+.destfilter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.dfb{background:#fff;border:1.5px solid var(--line);color:var(--muted);padding:9px 18px;
+  border-radius:99px;font-size:.85rem;font-weight:600;transition:all .2s}
+.dfb:hover{border-color:var(--brand);color:var(--deep)}
+.dfb.on{background:var(--deep);color:#fff;border-color:transparent}
+.rowacts{display:flex;gap:8px;flex-wrap:wrap}
+.icon{width:38px;height:38px;border-radius:10px;background:var(--tint);color:var(--deep);font-size:.92rem}
+.icon.del{background:#fdeceb;color:var(--red)}
+.icon.tog{background:#fff8e0;color:#8a5c00}
+
+/* ---------- Form ---------- */
+.form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f label{font-size:.79rem;font-weight:600;color:var(--muted)}
+.f input,.f select,.f textarea{border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;
+  font-size:.93rem;font-family:inherit;outline:none;background:#fff;color:var(--ink);width:100%}
+.f textarea{min-height:88px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--brand)}
+.f small{font-size:.74rem;color:var(--muted)}
+.fhead{font-weight:600;font-size:.95rem;color:var(--deep);margin:22px 0 12px;padding-bottom:8px;
+  border-bottom:1px solid var(--line)}
+.fhead:first-child{margin-top:0}
+.formacts{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.hide{display:none}
+
+/* ---------- Toast ---------- */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);
+  background:var(--ink);color:#fff;padding:13px 24px;border-radius:99px;font-size:.9rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .35s;z-index:200}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.bad{background:var(--red)}
+
+@media(max-width:700px){
+  .prow{grid-template-columns:1fr}
+  .tabs{top:auto;position:static}
+  .topbar{position:static}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login">
+    <img class="mark" src="Images/logo.png" alt="A&amp;B Tours and Travels logo">
+    <h1>Admin Panel</h1>
+    <p>A&amp;B Tours and Travels · Dindigul</p>
+    <input type="password" id="pw" placeholder="Enter admin password" autocomplete="current-password">
+    <div class="err" id="loginErr"></div>
+    <button id="loginBtn">Login</button>
+    <p style="margin-top:18px;margin-bottom:0"><a href="index.html">← Back to website</a></p>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+  <div class="topbar">
+    <b>A&amp;B Admin</b>
+    <div class="acts">
+      <a class="tb" href="index.html" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Site</a>
+      <button class="tb" id="exportBtn"><i class="fa-solid fa-download"></i> Backup</button>
+      <button class="tb" id="importBtn"><i class="fa-solid fa-upload"></i> Restore</button>
+      <button class="tb danger" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+      <button class="tb" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="pkgs">📦 Packages</button>
+    <button class="tab" data-tab="tes">⭐ Testimonials</button>
+    <button class="tab" data-tab="set">⚙️ Settings</button>
+  </div>
+
+  <div class="page">
+    <!-- ---------- PACKAGES ---------- -->
+    <div class="panel on" id="p-pkgs">
+      <div class="stats" id="stats"></div>
+      <div class="bar">
+        <div><h2 class="sec">Packages</h2><p class="sub" style="margin:0">Add, edit price, or hide packages from the website.</p></div>
+        <button class="btn" id="newPkg"><i class="fa-solid fa-plus"></i> Add New Package</button>
+      </div>
+      <div class="destfilter" id="destfilter"></div>
+      <div class="form hide" id="pkgForm"></div>
+      <div class="plist" id="plist"></div>
+    </div>
+
+    <!-- ---------- TESTIMONIALS ---------- -->
+    <div class="panel" id="p-tes">
+      <div class="bar">
+        <div><h2 class="sec">Testimonials</h2><p class="sub" style="margin:0">Customer reviews shown on the website.</p></div>
+        <button class="btn" id="newTes"><i class="fa-solid fa-plus"></i> Add Review</button>
+      </div>
+      <div class="plist" id="tlist"></div>
+    </div>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <div class="panel" id="p-set">
+      <h2 class="sec">Business Settings</h2>
+      <p class="sub">WhatsApp number, address and homepage text.</p>
+      <div class="form" id="setForm"></div>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileIn" accept="application/json" style="display:none">
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+/* ================= storage ================= */
+const K_PKG="ab_packages_v1", K_SET="ab_settings_v1", K_TES="ab_testimonials_v1", K_AUTH="ab_auth_v1";
+const clone = o => JSON.parse(JSON.stringify(o));
+function load(k,f){try{const r=localStorage.getItem(k);if(!r)return clone(f);const v=JSON.parse(r);
+  return (v&&(Array.isArray(v)?v.length:Object.keys(v).length))?v:clone(f);}catch(e){return clone(f);}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+
+let SET  = Object.assign({}, AB_DEFAULT_SETTINGS, load(K_SET,{}));
+let PKGS = load(K_PKG, AB_DEFAULT_PACKAGES);
+let TES  = load(K_TES, AB_DEFAULT_TESTIMONIALS);
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const money = n => "₹" + Number(n||0).toLocaleString("en-IN");
+let toastT;
+function toast(msg, bad){
+  const t=$("toast"); t.textContent=msg; t.className = bad?"show bad":"show";
+  clearTimeout(toastT); toastT=setTimeout(()=>t.className="",2600);
+}
+
+/* ================= login ================= */
+function doLogin(){
+  const pw = $("pw").value;
+  if(pw === (SET.adminPassword || "tours@123")){
+    sessionStorage.setItem(K_AUTH,"1"); showApp();
+  } else { $("loginErr").textContent = "Wrong password. Please try again."; $("pw").value=""; }
+}
+function showApp(){ $("loginWrap").style.display="none"; $("app").style.display="block"; renderAll(); }
+$("loginBtn").addEventListener("click", doLogin);
+$("pw").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
+$("logoutBtn").addEventListener("click", () => { sessionStorage.removeItem(K_AUTH); location.reload(); });
+if(sessionStorage.getItem(K_AUTH)==="1") showApp();
+
+/* ================= tabs ================= */
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));
+  t.classList.add("on"); $("p"+"-"+t.dataset.tab).classList.add("on");
+}));
+
+/* ================= packages ================= */
+const DESTS = AB_DESTINATIONS;
+const destName = id => (DESTS.find(d=>d.id===id)||{}).name || "—";
+let dFilter = "all";
+
+function renderStats(){
+  const act = PKGS.filter(p=>p.active!==false).length;
+  const prices = PKGS.filter(p=>!p.draft).map(p=>Number(p.price)||0).filter(Boolean);
+  const drafts = PKGS.filter(p=>p.draft).length;
+  $("stats").innerHTML = `
+    <div class="stat"><b>${PKGS.length}</b><span>Total Packages</span></div>
+    <div class="stat"><b>${act}</b><span>Live on Website</span></div>
+    <div class="stat"><b>${DESTS.filter(d=>PKGS.some(p=>p.dest===d.id)).length}</b><span>Destinations</span></div>
+    <div class="stat"><b>${drafts}</b><span>Prices To Confirm</span></div>
+    <div class="stat"><b>${prices.length?money(Math.min(...prices)):"—"}</b><span>Lowest Price</span></div>`;
+}
+
+function renderDestFilter(){
+  $("destfilter").innerHTML =
+    `<button class="dfb ${dFilter==="all"?"on":""}" data-df="all">All (${PKGS.length})</button>` +
+    DESTS.map(d=>{
+      const n = PKGS.filter(p=>p.dest===d.id).length;
+      return `<button class="dfb ${dFilter===d.id?"on":""}" data-df="${d.id}">${esc(d.name)} (${n})</button>`;
+    }).join("");
+  $("destfilter").querySelectorAll("[data-df]").forEach(b=>b.onclick=()=>{
+    dFilter = b.dataset.df; renderPkgs();
+  });
+}
+
+function renderPkgs(){
+  renderStats();
+  renderDestFilter();
+  const rows = PKGS.map((p,i)=>({p,i}))
+                   .filter(x => dFilter==="all" || x.p.dest===dFilter);
+
+  $("plist").innerHTML = rows.map(({p,i})=>`
+    <div class="prow ${p.active===false?'off':''}">
+      <div>
+        <h3>${esc(p.name)} ${p.active===false?'<span class="tag" style="background:#eee;color:#777">Hidden</span>':''}</h3>
+        <div class="tags">
+          <span class="tag dest">${esc(destName(p.dest))}</span>
+          ${p.draft
+            ? `<span class="tag draft">⚠ Confirm price — shows "On Request"</span>
+               <span class="tag price">${money(p.price)} ${p.priceType==="person"?"/ person":"total"} (draft)</span>`
+            : `<span class="tag price">${money(p.price)} ${p.priceType==="person"?"/ person":"total"}</span>`}
+          <span class="tag">${p.days}D / ${p.nights}N</span>
+          <span class="tag">${p.minPax}–${p.maxPax} pax</span>
+          <span class="tag type">${esc(p.type)}</span>
+          ${p.badge?`<span class="tag" style="background:#fff8e0;color:#8a5c00">${esc(p.badge)}</span>`:""}
+        </div>
+      </div>
+      <div class="rowacts">
+        <button class="btn small" data-edit="${i}"><i class="fa-solid fa-pen"></i> Edit</button>
+        <button class="icon tog" data-tog="${i}" title="Show / hide"><i class="fa-solid fa-eye${p.active===false?'-slash':''}"></i></button>
+        <button class="icon del" data-del="${i}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join("") || `<p class="sub">No packages here yet. Click "Add New Package".</p>`;
+
+  $("plist").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editPkg(+b.dataset.edit));
+  $("plist").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.del;
+    if(confirm('Delete "'+PKGS[i].name+'"? This cannot be undone.')){
+      PKGS.splice(i,1); save(K_PKG,PKGS); renderPkgs(); toast("Package deleted");
+    }});
+  $("plist").querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.tog; PKGS[i].active = PKGS[i].active===false;
+    save(K_PKG,PKGS); renderPkgs(); toast(PKGS[i].active?"Package is now live":"Package hidden from site");
+  });
+}
+
+const BLANK = {
+  id:"", dest:"kodaikanal", name:"", type:"family", days:2, nights:1, minPax:2, maxPax:4,
+  priceType:"total", price:0, draft:false, vehicle:"Private 4-Seater Cab", room:"Family Room",
+  breakfast:"2 Breakfasts — Idli / Dosa / Vada (8:30 AM)",
+  dinner:"1 Dinner — Chapathi + Chicken Gravy 150g (8:30 PM)",
+  pickupTime:"5:00 AM", dropTime:"8:00 PM – 9:00 PM", checkIn:"10:00 AM", checkOut:"10:00 AM",
+  sightseeing:"9:00 AM – 6:00 PM", badge:"", popular:false, image:"", note:"",
+  itinerary:[{day:"Day 1",places:[]}], includes:[], excludes:[], active:true
+};
+
+function pkgFormHTML(p, idx){
+  const it = (p.itinerary||[]).map(d => d.day + " :: " + (d.places||[]).join(", ")).join("\n");
+  return `
+  <div class="fhead">Basic Info</div>
+  <div class="grid">
+    <div class="f"><label>Destination</label>
+      <select id="x_dest">
+        ${DESTS.map(d=>`<option value="${d.id}" ${(p.dest||"kodaikanal")===d.id?"selected":""}>${esc(d.name)}, ${esc(d.state)}</option>`).join("")}
+      </select></div>
+    <div class="f"><label>Package Name</label><input id="x_name" value="${esc(p.name)}" placeholder="e.g. Kodaikanal Couple Package"></div>
+    <div class="f"><label>Package Type</label>
+      <select id="x_type">
+        ${["couple","family","offer","group"].map(t=>`<option value="${t}" ${p.type===t?"selected":""}>${t.charAt(0).toUpperCase()+t.slice(1)}</option>`).join("")}
+      </select><small>Couple → shown for 2 adults. Offer → shown for 7+ groups.</small></div>
+    <div class="f"><label>Ribbon Text (optional)</label><input id="x_badge" value="${esc(p.badge)}" placeholder="e.g. Best Value"></div>
+    <div class="f"><label>Days</label><input type="number" id="x_days" value="${p.days}" min="1" max="10"></div>
+    <div class="f"><label>Nights</label><input type="number" id="x_nights" value="${p.nights}" min="0" max="9"></div>
+    <div class="f"><label>Minimum People</label><input type="number" id="x_minPax" value="${p.minPax}" min="1"></div>
+    <div class="f"><label>Maximum People</label><input type="number" id="x_maxPax" value="${p.maxPax}" min="1"></div>
+  </div>
+
+  <div class="fhead">Pricing</div>
+  <div class="grid">
+    <div class="f"><label>Price (₹)</label><input type="number" id="x_price" value="${p.price}" min="0"></div>
+    <div class="f"><label>Price Type</label>
+      <select id="x_priceType">
+        <option value="total" ${p.priceType==="total"?"selected":""}>Total for the whole group</option>
+        <option value="person" ${p.priceType==="person"?"selected":""}>Per person</option>
+      </select></div>
+    <div class="f full" style="background:#fffaf0;border:1px solid #f0dfa6;border-radius:10px;padding:14px">
+      <label style="color:#8a5c00"><input type="checkbox" id="x_draft" ${p.draft?"checked":""}
+        style="width:auto;margin-right:8px">Price not confirmed yet — show "On Request" on the website</label>
+      <small>Tick this while you're still deciding the rate. Customers see "On Request" and are asked to message you. Untick it once the price is final.</small></div>
+    <div class="f full"><label>Special Note (optional)</label>
+      <input id="x_note" value="${esc(p.note)}" placeholder="e.g. Offer valid for groups of 7 members and above only."></div>
+  </div>
+
+  <div class="fhead">Cab, Room &amp; Food</div>
+  <div class="grid">
+    <div class="f"><label>Vehicle</label><input id="x_vehicle" value="${esc(p.vehicle)}"></div>
+    <div class="f"><label>Room Type</label><input id="x_room" value="${esc(p.room)}"></div>
+    <div class="f full"><label>Breakfast</label><input id="x_breakfast" value="${esc(p.breakfast)}"></div>
+    <div class="f full"><label>Dinner</label><input id="x_dinner" value="${esc(p.dinner)}"></div>
+  </div>
+
+  <div class="fhead">Timings</div>
+  <div class="grid">
+    <div class="f"><label>Pickup Time</label><input id="x_pickupTime" value="${esc(p.pickupTime)}"></div>
+    <div class="f"><label>Drop Time</label><input id="x_dropTime" value="${esc(p.dropTime)}"></div>
+    <div class="f"><label>Check In</label><input id="x_checkIn" value="${esc(p.checkIn)}"></div>
+    <div class="f"><label>Check Out</label><input id="x_checkOut" value="${esc(p.checkOut)}"></div>
+    <div class="f"><label>Sightseeing Hours</label><input id="x_sightseeing" value="${esc(p.sightseeing)}"></div>
+    <div class="f"><label>Card Image URL (optional)</label><input id="x_image" value="${esc(p.image)}" placeholder="assets/couple.jpg"></div>
+  </div>
+
+  <div class="fhead">Itinerary</div>
+  <div class="grid">
+    <div class="f full"><label>One day per line — format:  Day 1 :: Place, Place, Place</label>
+      <textarea id="x_it" style="min-height:150px">${esc(it)}</textarea>
+      <small>Example → Day 1 :: Manjalar Dam, Silver Cascade Falls, Coaker's Walk</small></div>
+  </div>
+
+  <div class="fhead">Includes &amp; Excludes</div>
+  <div class="grid">
+    <div class="f"><label>Includes (one per line)</label><textarea id="x_inc">${esc((p.includes||[]).join("\n"))}</textarea></div>
+    <div class="f"><label>Excludes (one per line)</label><textarea id="x_exc">${esc((p.excludes||[]).join("\n"))}</textarea></div>
+    <div class="f full"><label><input type="checkbox" id="x_active" ${p.active!==false?"checked":""} style="width:auto;margin-right:8px">Show this package on the website</label></div>
+  </div>
+
+  <div class="formacts">
+    <button class="btn" id="savePkg"><i class="fa-solid fa-check"></i> ${idx===null?"Add Package":"Save Changes"}</button>
+    <button class="btn ghost" id="cancelPkg">Cancel</button>
+  </div>`;
+}
+
+function openPkgForm(p, idx){
+  const f = $("pkgForm");
+  f.classList.remove("hide");
+  f.innerHTML = pkgFormHTML(p, idx);
+  f.scrollIntoView({behavior:"smooth", block:"start"});
+  $("cancelPkg").onclick = () => { f.classList.add("hide"); f.innerHTML=""; };
+  $("savePkg").onclick = () => {
+    const g = id => $("x_"+id).value.trim();
+    const n = id => Number($("x_"+id).value)||0;
+    if(!g("name")){ toast("Please enter a package name", true); return; }
+
+    const itinerary = g("it").split("\n").map(l=>l.trim()).filter(Boolean).map(line=>{
+      const parts = line.split("::");
+      return { day:(parts[0]||"Day").trim(),
+               places:(parts[1]||"").split(",").map(s=>s.trim()).filter(Boolean) };
+    });
+    const obj = {
+      id: p.id || ("pkg-" + Date.now()),
+      dest: $("x_dest").value,
+      name:g("name"), type:$("x_type").value, badge:g("badge"),
+      days:n("days"), nights:n("nights"), minPax:n("minPax")||1, maxPax:n("maxPax")||99,
+      price:n("price"), priceType:$("x_priceType").value, draft:$("x_draft").checked, note:g("note"),
+      vehicle:g("vehicle"), room:g("room"), breakfast:g("breakfast"), dinner:g("dinner"),
+      pickupTime:g("pickupTime"), dropTime:g("dropTime"), checkIn:g("checkIn"),
+      checkOut:g("checkOut"), sightseeing:g("sightseeing"), image:g("image"),
+      itinerary,
+      includes:g("inc").split("\n").map(s=>s.trim()).filter(Boolean),
+      excludes:g("exc").split("\n").map(s=>s.trim()).filter(Boolean),
+      popular: !!p.popular,
+      active: $("x_active").checked
+    };
+    if(idx===null) PKGS.push(obj); else PKGS[idx]=obj;
+    save(K_PKG, PKGS);
+    f.classList.add("hide"); f.innerHTML="";
+    renderPkgs();
+    toast(idx===null ? "Package added" : "Changes saved");
+  };
+}
+$("newPkg").onclick = () => openPkgForm(clone(BLANK), null);
+function editPkg(i){ openPkgForm(clone(PKGS[i]), i); }
+
+/* ================= testimonials ================= */
+function renderTes(){
+  $("tlist").innerHTML = TES.map((t,i)=>`
+    <div class="prow">
+      <div>
+        <h3>${esc(t.name)} <span class="tag">${esc(t.place||"")}</span>
+          <span class="tag" style="background:#fff8e0;color:#8a5c00">${"★".repeat(Math.max(1,Math.min(5,t.stars||5)))}</span></h3>
+        <p style="font-size:.88rem;color:var(--muted)">${esc(t.text)}</p>
+      </div>
+      <div class="rowacts">
+        <button class="btn small" data-te="${i}"><i class="fa-solid fa-pen"></i> Edit</button>
+        <button class="icon del" data-td="${i}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join("") || `<p class="sub">No reviews yet.</p>`;
+
+  $("tlist").querySelectorAll("[data-te]").forEach(b=>b.onclick=()=>editTes(+b.dataset.te));
+  $("tlist").querySelectorAll("[data-td]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.td;
+    if(confirm("Delete this review?")){ TES.splice(i,1); save(K_TES,TES); renderTes(); toast("Review deleted"); }
+  });
+}
+function editTes(i){
+  const t = i===null ? {name:"",place:"",stars:5,text:""} : clone(TES[i]);
+  const name = prompt("Customer name:", t.name); if(name===null) return;
+  const place = prompt("City / place:", t.place||""); if(place===null) return;
+  const stars = prompt("Star rating (1–5):", t.stars||5); if(stars===null) return;
+  const text = prompt("Review text:", t.text); if(text===null) return;
+  const obj = {name:name.trim(), place:place.trim(), stars:Math.max(1,Math.min(5,Number(stars)||5)), text:text.trim()};
+  if(i===null) TES.push(obj); else TES[i]=obj;
+  save(K_TES,TES); renderTes(); toast("Review saved");
+}
+$("newTes").onclick = () => editTes(null);
+
+/* ================= settings ================= */
+function renderSet(){
+  $("setForm").innerHTML = `
+  <div class="fhead">Business Details</div>
+  <div class="grid">
+    <div class="f"><label>Company Name</label><input id="s_company" value="${esc(SET.company)}"></div>
+    <div class="f"><label>WhatsApp Number</label><input id="s_whatsapp" value="${esc(SET.whatsapp)}">
+      <small>Country code + number, digits only. India → 91 then the 10-digit number.</small></div>
+    <div class="f full"><label>Office Address</label><input id="s_address" value="${esc(SET.address)}"></div>
+    <div class="f full"><label>Google Maps Search Text</label><input id="s_mapQuery" value="${esc(SET.mapQuery)}">
+      <small>What the map should search for. Address works fine.</small></div>
+    <div class="f full"><label>Phone Numbers (one per line)</label><textarea id="s_phones">${esc((SET.phones||[]).join("\n"))}</textarea></div>
+    <div class="f full"><label>Pickup Points (one per line)</label><textarea id="s_pickup">${esc((SET.pickupPoints||[]).join("\n"))}</textarea></div>
+    <div class="f full"><label>Instagram URL</label><input id="s_instagram" value="${esc(SET.instagram)}"></div>
+  </div>
+
+  <div class="fhead">Homepage Text</div>
+  <div class="grid">
+    <div class="f"><label>Hero Title</label><input id="s_heroTitle" value="${esc(SET.heroTitle)}"></div>
+    <div class="f full"><label>Hero Subtitle</label><textarea id="s_heroSubtitle">${esc(SET.heroSubtitle)}</textarea></div>
+  </div>
+
+  <div class="fhead">Security</div>
+  <div class="grid">
+    <div class="f"><label>Admin Password</label><input id="s_adminPassword" value="${esc(SET.adminPassword)}">
+      <small>Changing this logs you out on next visit.</small></div>
+  </div>
+
+  <div class="formacts"><button class="btn" id="saveSet"><i class="fa-solid fa-check"></i> Save Settings</button></div>`;
+
+  $("saveSet").onclick = () => {
+    const g = id => $("s_"+id).value.trim();
+    SET = Object.assign({}, SET, {
+      company:g("company"), whatsapp:g("whatsapp").replace(/\D/g,""),
+      address:g("address"), mapQuery:g("mapQuery"),
+      phones:g("phones").split("\n").map(s=>s.trim()).filter(Boolean),
+      pickupPoints:g("pickup").split("\n").map(s=>s.trim()).filter(Boolean),
+      instagram:g("instagram"), heroTitle:g("heroTitle"), heroSubtitle:g("heroSubtitle"),
+      adminPassword:g("adminPassword") || "tours@123"
+    });
+    save(K_SET, SET); toast("Settings saved");
+  };
+}
+
+/* ================= backup / restore / reset ================= */
+$("exportBtn").onclick = () => {
+  const blob = new Blob([JSON.stringify({packages:PKGS, settings:SET, testimonials:TES}, null, 2)],
+    {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ab-tours-backup-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click(); URL.revokeObjectURL(a.href);
+  toast("Backup file downloaded");
+};
+$("importBtn").onclick = () => $("fileIn").click();
+$("fileIn").onchange = e => {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(d.packages) { PKGS = d.packages; save(K_PKG, PKGS); }
+      if(d.settings) { SET = Object.assign({}, AB_DEFAULT_SETTINGS, d.settings); save(K_SET, SET); }
+      if(d.testimonials){ TES = d.testimonials; save(K_TES, TES); }
+      renderAll(); toast("Backup restored");
+    }catch(err){ toast("Invalid backup file", true); }
+    e.target.value = "";
+  };
+  r.readAsText(f);
+};
+$("resetBtn").onclick = () => {
+  if(!confirm("Reset everything back to the original packages and settings? Your edits will be lost.")) return;
+  localStorage.removeItem(K_PKG); localStorage.removeItem(K_SET); localStorage.removeItem(K_TES);
+  PKGS = clone(AB_DEFAULT_PACKAGES); SET = clone(AB_DEFAULT_SETTINGS); TES = clone(AB_DEFAULT_TESTIMONIALS);
+  renderAll(); toast("Reset to defaults");
+};
+
+function renderAll(){ renderPkgs(); renderTes(); renderSet(); }
+</script>
+</body>
+</html>
